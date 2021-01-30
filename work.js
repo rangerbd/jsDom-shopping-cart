@@ -1,10 +1,67 @@
 const plus=document.getElementById("plus");
 plus.addEventListener("click",function(){
-    // console.log("this is clicked");
+        
+        handleProduct(true);
+    
+    })
 
+// iphone minus
+
+const negative=document.getElementById("negative");
+negative.addEventListener("click",function(){
+
+        handleProduct(false);
+
+    })
+    
+
+const productIncrease=document.getElementById("productIncrease");
+productIncrease.addEventListener("click",function(){
+    handlePhone(true);
+})
+
+const productDecrease=document.getElementById("productDecrease");
+productDecrease.addEventListener("click",function(){
+    handlePhone(false);
+})
+
+
+
+
+function handlePhone(amount){
+    const productQuantity = document.getElementById("productQuantity").value;
+    var productNumber=parseFloat(productQuantity);
+     
+    if(amount == true){
+        productNumber=productNumber + 1;
+    }
+
+    if( amount == false && productNumber>0){
+        productNumber=productNumber - 1;
+    }
+    document.getElementById("productQuantity").value= productNumber;
+
+    const productPrice =document.getElementById("productPrice").innerText;
+    const product=parseFloat(productPrice);
+    var totalProduct= productNumber * 59;
+
+    document.getElementById("productPrice").innerText=totalProduct;
+
+    calculateTotal();
+}
+
+
+function handleProduct(isIncreased){
     const quantity=document.getElementById("quantity").value;
     var quantityNumber=parseFloat(quantity);
-    quantityNumber=quantityNumber+1;
+    // 
+    if(isIncreased == true){
+        quantityNumber=quantityNumber+1;
+    }
+
+    if( isIncreased == false && quantityNumber > 0){
+        quantityNumber=quantityNumber - 1;
+    }
     document.getElementById("quantity").value= quantityNumber;
 
     const iphone=document.getElementById("iphone").innerText;
@@ -12,36 +69,27 @@ plus.addEventListener("click",function(){
     var total= quantityNumber * 1219;
 
     document.getElementById("iphone").innerText=total;
-    
 
-})
+    calculateTotal();
+}
 
-// iphone minus
+function calculateTotal(){
+   const phoneInput = document.getElementById("quantity");
+   const phoneCount=parseFloat(phoneInput.value);
 
-const negative=document.getElementById("negative");
-negative.addEventListener("click",function(){
 
-    const quantity=document.getElementById("quantity").value;
-    var quantityNumber=parseFloat(quantity);
-    var negativePhone=quantityNumber-1;
+   const caseInput=document.getElementById("productQuantity");
+   const caseCount=parseFloat(caseInput.value);
 
-    if (negativePhone>=0){
-        document.getElementById("quantity").value= negativePhone;
+   const price= phoneCount * 1239 + caseCount * 59;
+   
+   document.getElementById("sub-total").innerText= price;
 
-    const iphone=document.getElementById("iphone").innerText;
-    const iphoneNumber=parseFloat(iphone);
-    
-    var Total = negativePhone * 1239;
+   const tax= price * .01;
+   document.getElementById("tax").innerText='$' + tax;
 
-    document.getElementById("iphone").innerText=Total;
-    }
-
-    else{
-         var total= 0;
-        document.getElementById("iphone").innerText=total;
-    }
-
-    }
-    
-
-)
+   const allTotal=price + tax;
+   document.getElementById("allTotal").innerText=allTotal;
+ 
+  
+}
